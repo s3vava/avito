@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Перенаправление...</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        .loader {
+            text-align: center;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .hidden-link {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="loader">
+        <div class="spinner"></div>
+        <p>Перенаправляем на Авито...</p>
+    </div>
+
+    <!-- Скрытая ссылка для эмуляции клика -->
+    <a href="https://www.avito.ru/pechora/predlozheniya_uslug/gruzoperevozki_pechora._gorod._gruzchiki_7542325268" 
+       id="avitoLink" 
+       class="hidden-link" 
+       target="_blank" 
+       rel="noopener noreferrer">
+        Грузоперевозки Печора
+    </a>
+
+    <script>
+        // Функция для моментального редиректа с эмуляцией клика
+        function redirectToAvito() {
+            const avitoUrl = 'https://www.avito.ru/pechora/predlozheniya_uslug/gruzoperevozki_pechora._gorod._gruzchiki_7542325268';
+            const link = document.getElementById('avitoLink');
+            
+            try {
+                // Эмулируем клик по ссылке для открытия в приложении Авито
+                link.click();
+                
+                // Дополнительная проверка - если клик не сработал, используем window.location
+                setTimeout(() => {
+                    window.location.href = avitoUrl;
+                }, 100);
+                
+            } catch (error) {
+                // Резервный вариант
+                window.location.href = avitoUrl;
+            }
+        }
+
+        // Выполняем редирект сразу после загрузки DOM
+        document.addEventListener('DOMContentLoaded', function() {
+            redirectToAvito();
+        });
+
+        // Дополнительный редирект на случай, если DOM уже загружен
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', redirectToAvito);
+        } else {
+            redirectToAvito();
+        }
+
+        // Резервный таймер на случай, если что-то пойдет не так
+        setTimeout(() => {
+            window.location.href = 'https://www.avito.ru/pechora/predlozheniya_uslug/gruzoperevozki_pechora._gorod._gruzchiki_7542325268';
+        }, 1000);
+    </script>
+</body>
+</html>
